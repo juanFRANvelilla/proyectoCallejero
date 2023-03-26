@@ -2,6 +2,7 @@ const enunciado = document.getElementById("enunciado");
 const alternativa1 = document.getElementById("alternativa1");
 const alternativa2 = document.getElementById("alternativa2");
 const alternativa3 = document.getElementById("alternativa3");
+const numeroPreguntaID = document.getElementById("numero-pregunta");
 const contenedorResultado = document.getElementById("contenedorRespuestas");
 const resultado = document.getElementById("resultado");
 const reiniciar = document.getElementById("reiniciar");
@@ -83,8 +84,9 @@ async function realizarPeticion() {
     //enunciado de la pregunta en la que sacará por pantalla el origen y destino
     let nombreOrigen = data[recorrido[0]].nombre
     let nombreDestino = data[recorrido[recorrido.length-1]].nombre
-    let fraseEnunciado = "Pregunta número: " + numeroPregunta + "<br>" + nombreOrigen + " -- " + nombreDestino;
+    let fraseEnunciado = nombreOrigen + " — " + nombreDestino;
     enunciado.innerHTML = fraseEnunciado;
+    numeroPreguntaID.innerHTML = numeroPregunta;
 
     //al terminar el cuestionario se mostrara el total de preguntas y su correcta respuesta, con este metodo añadimos
     //pregunta a pregunta el resultado
@@ -555,14 +557,3 @@ function ocultarElementos(){
 function reiniciarCuestionario(){
     location.reload();
 }
-
-
-
-
-
-
-
-
-
-
-

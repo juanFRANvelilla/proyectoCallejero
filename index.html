@@ -5,12 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/styleCallejero.css"/>
+    <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro-v6/44659d9/css/all.min.css" rel="stylesheet">
     <title>Callejero</title>
     <link rel="icon" href="static/img/logoCallejero.png">
 </head>
 <body>
     <div id="formulario" class="grid_container">
-        <p id="enunciado" class="grid_enunciado"></p>
+        <div class="grid_enunciado flex-column">
+            <div class="flex-row font-bold">
+                <p>
+                    Pregunta número
+                </p>
+                <p id="numero-pregunta">
+                    
+                </p>
+            </div>
+            <p id="enunciado" ></p>
+        </div>
         <form name="callejero" onsubmit="return verificar()">
             <label for="opcion1">
                 <div class="grid_item">
@@ -41,7 +52,8 @@
             </label>
             
             <div class="grid_item_boton">
-                <input type="button" id="enviar" onclick="comprobarRespuesta()" value="SIGUIENTE PREGUNTA">
+                <input type="button" id="enviar" onclick="comprobarRespuesta()" value="SIGUIENTE">
+                <i class="fa-solid fa-arrow-right"></i>
             </div>          
         </form>
     </div>

@@ -1,14 +1,29 @@
-*{
+* {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 
 body {
-    background-color: rgb(218, 244, 255);
+    background-color: rgb(3,48,67);
     color:rgb(255, 255, 255)
 }
 
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .grid_container{
     max-width: 35vw;
@@ -20,28 +35,30 @@ body {
     grid-template-columns: repeat(1, minmax(320px, 1000px));
     grid-auto-flow: row;
     margin: auto;
-    border-radius: 20px;
-    padding: 10px;
+    margin-top: 40px;
+    padding: 20px 40px 20px 40px;
     position: relative;
+    margin-top: 0px;
 }
 
-.grid_enunciado{
+.grid_enunciado {
     border-radius: 10px;
     height: 45px;
     border: 2px solid rgb(255, 255, 255);
     text-align: center;
     padding-top: 5px;
-    margin-bottom: -70px;
-    
+    margin-top: 20px;
 }
 
 .grid_item{    
+    background-color: rgb(4, 57, 80);
     grid-column: span 2;
     border-radius: 10px;
     min-height: 38px;
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    padding: 5px 10px;
 }
 
 .grid_item input[type="radio"] {
@@ -66,8 +83,8 @@ body {
 .grid_item_boton{
     position:absolute;
     bottom: 20px;
-    left: 50%;
-    transform: translate(-50%);
+    float: right;
+    margin-left: auto;
 }
 
 #enviar{
@@ -78,7 +95,7 @@ body {
     max-width: 40%;
     min-width: 200px;
     height: 100%;
-    margin-top: 0px;
+    margin-top: 5px;
  }
  
 
@@ -100,6 +117,10 @@ body {
     height: 50px;
 }
 
+#enunciado {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 
 .sin_casilla input[type="radio"] {
     opacity: 0;
@@ -109,6 +130,10 @@ body {
 .grid_item.selected {
     background-color: blue;
     color: white;
+}
+
+.font-bold {
+    font-weight: bold;
 }
 
 #contenedorRespuestas{
@@ -122,6 +147,15 @@ body {
     margin: auto;
     border-radius: 20px;
     padding: 10px;
+}
+
+#numero-pregunta {
+    margin-left: 10px;
+    background-color: azure;
+    border-radius: 0.5em;
+    height: 20px;
+    width: 20px;
+    color: rgb(3,48,67);
 }
 
 #reiniciar{
@@ -154,20 +188,30 @@ body {
     text-align: start;
 }
 
-
 #link{  
     color: aliceblue;
     text-decoration: none;
 }
 
-
-
 #link:visited{
     color: rgb(3,48,67);
 }
 
+@media only screen and (min-width: 1200px) {
+    .grid_container {
+        border-radius: 20px;
+        margin-top: 20px;
+    }
 
+    body {
+        background-color: rgb(218, 244, 255);
+    }
+}
 
+input {
+    font-weight: bolder;
+}
 
-
- 
+* {
+    //border: 2px solid red;
+}

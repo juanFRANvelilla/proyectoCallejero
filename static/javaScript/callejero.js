@@ -2,12 +2,14 @@ const enunciado = document.getElementById("enunciado");
 const alternativa1 = document.getElementById("alternativa1");
 const alternativa2 = document.getElementById("alternativa2");
 const alternativa3 = document.getElementById("alternativa3");
+const numeroPreguntaID = document.getElementById("numero-pregunta");
 const contenedorResultado = document.getElementById("contenedorRespuestas");
 const resultado = document.getElementById("resultado");
 const reiniciar = document.getElementById("reiniciar");
 reiniciar.style.display = "none";
-let resultadoPreguntas = "RESPUESTAS CORRECTAS <br><br>";
-let clickOpcion = document.querySelectorAll(".grid_item");
+let resultadoPreguntas = "";
+let correccion = [];
+let clickOpcion = document.querySelectorAll(".alternativa");
 let opcionElegida = null;
 
 for (let i = 0; i < clickOpcion.length; i++){
@@ -80,15 +82,17 @@ async function realizarPeticion() {
     let nombreRecorridoAlternativa = nombreCallesRecorrido(recorridoAlternativa,data)
     let nombreRecorridoAlternativa2 = nombreCallesRecorrido(recorridoAlternativa2,data)
     
-    //enunciado de la pregunta en la que sacará por pantalla el origen y destino
+    //enunciado de la pregunta en la que sacara por pantalla el origen y destino
     let nombreOrigen = data[recorrido[0]].nombre
     let nombreDestino = data[recorrido[recorrido.length-1]].nombre
-    let fraseEnunciado = "Pregunta número: " + numeroPregunta + "<br>" + nombreOrigen + " -- " + nombreDestino;
+    let fraseEnunciado = nombreOrigen + " — " + nombreDestino;
     enunciado.innerHTML = fraseEnunciado;
+    numeroPreguntaID.innerHTML = numeroPregunta;
 
-    //al terminar el cuestionario se mostrara el total de preguntas y su correcta respuesta, con este metodo añadimos
-    //pregunta a pregunta el resultado
-    añadirResultadoPreguntas(nombreRecorridoCorrecto, fraseEnunciado);
+    //al terminar el cuestionario se mostrara el total de preguntas y su respuesta correspondiente  
+	//con este metodo añadimos pregunta a pregunta el resultado
+    añadirResultadoPreguntas(nombreRecorridoCorrecto, fraseEnunciado, numeroPregunta);
+	//mas tarde al comprobar la alternativa seleccionada indicara si has acertado, fallado o no contestado
     
 
     //selecciona el orden en el que van a presentarse las diferentes alternativas de la pregunta para que el orden varie
@@ -103,14 +107,14 @@ async function realizarPeticion() {
     
 }
 
-//asigna una posicion aleatoria del 1 al 3 al recorrido valido y alternativas, asigna a la variable global la "posicionA" que
-//es la correspondiente a la alternativa correcta
+//asigna una posicion aleatoria del 1 al 3 al recorrido valido y alternativas, asigna a la variable global "respuestaCorrecta"
+//la "posicionA" que es la correspondiente a la alternativa correcta
 function seleccionarOrden(nombreRecorridoCorrecto,nombreRecorridoAlternativa,nombreRecorridoAlternativa2){
     posicionA = Math.floor(Math.random() * (3) + 1);
     respuestaCorrecta = posicionA;
     mostrarPorPantalla(posicionA, nombreRecorridoCorrecto);
 
-    let posicionB=0;
+    let posicionB = 0;
     do{
         posicionB = Math.floor(Math.random() * (3) + 1);
 
@@ -488,20 +492,31 @@ function crearCopiaRecorrido(recorrido){
 //funcion que se activa al pulsar el boton "SIGUIENTE PREGUNTA" manda el formulario con la respuesta seleccionada
 function comprobarRespuesta(){
     let numeroTotalPreguntas = 10;
-    const respuesta = document.getElementById("botonEnviar");
+    //const respuesta = document.getElementById("botonEnviar");
     let callejero = document.forms["callejero"];
     numeroPregunta++;
     if(callejero["alternativa"].value == respuestaCorrecta){
         aciertos++;
+        resultadoPreguntas += "<br> ACIERTO";
     }
     else if(callejero["alternativa"].value == ""){
         alert("Debes seleccionar alguna opción.");
         numeroPregunta--;
         return false;
     }
-    else if(callejero["alternativa"].value != respuestaCorrecta && callejero["alternativa"].value != 4){
-        fallos++;
+    else if (callejero["alternativa"].value == 4){
+        resultadoPreguntas += "<br> NO CONTESTADA";
+        console.log(resultadoPreguntas)
     }
+
+    else if(callejero["alternativa"].value != respuestaCorrecta){
+        fallos++;
+        resultadoPreguntas += "<br> FALLO";
+    }
+    
+	//añadimos al vector correccion el resultado de la pregunta correspondiente con la correccion
+    correccion.push(resultadoPreguntas);
+    resultadoPreguntas = "";
     vaciarAlternativaes();
 
     //si el numero de la pregunta es menor o igual al total de preguntas que se requiere para acabar el formulario
@@ -509,13 +524,27 @@ function comprobarRespuesta(){
     if(numeroPregunta <= numeroTotalPreguntas){
         realizarPeticion();
     }
-    //si se ha completado el numero de preguntas requeridas te mostrara el resultado obtenido las respuestas correctas
-    //de cada pregunta y te habilitara la opcion de volver a realizar el cuestionario
+    //si se ha completado el numero de preguntas requeridas te mostrara el resultado obtenido y las respuestas correctas
+    //de cada pregunta y te habilitara la opcion de volver a realizar el cuestionario y de volver a la pagina principal
     else{
         numeroPregunta--;
         let nota = (aciertos - (fallos * 1/2)) / numeroPregunta * 10
+        if (nota < 0){
+            nota = 0;
+        }
         alert ("Has terminado tu nota es: " + nota)
-        resultado.innerHTML = resultadoPreguntas;
+
+        const correcciones = document.getElementById("correcciones");
+        for(let i = 0; i < correccion.length; i++){
+            const nuevaCorreccion = document.createElement("p");
+            nuevaCorreccion.innerHTML = correccion[i];
+            nuevaCorreccion.style.backgroundColor = "rgb(4, 57, 80)";
+            nuevaCorreccion.style.marginBottom = "15px";
+            nuevaCorreccion.style.borderRadius = "10px";
+            nuevaCorreccion.style.padding = "5px 10px 5px 15px";
+            correcciones.appendChild(nuevaCorreccion);
+        }
+
         ocultarElementos();
         contenedorResultado.style.display="block";
         reiniciar.style.display = "inline";
@@ -539,11 +568,11 @@ function vaciarAlternativaes(){
 
 //cada vez que se genera una nueva pregunta se llama a esta funcion para almacenar el enunciado y la respuesta correcta para poder
 //mostrarlas una vez haya terminado el cuestionario
-function añadirResultadoPreguntas(nombreRecorridoCorrecto, fraseEnunciado){
-    resultadoPreguntas += fraseEnunciado + "<br>" + nombreRecorridoCorrecto + "<br><br>";
+function añadirResultadoPreguntas(nombreRecorridoCorrecto, fraseEnunciado, numPregunta){
+    resultadoPreguntas += "Pregunta número: " + numPregunta + "<br>" + fraseEnunciado + "<br>" + nombreRecorridoCorrecto;
 }
 
-//oculta el formulario cuando este ya ha sido completado, de esta forma apareceran solas las respuestas a las preguntas
+//oculta el formulario cuando este ya ha sido completado, de esta forma apareceran solas las respuestas y la correccion
 function ocultarElementos(){
     const formulario = document.getElementById("formulario");
     const footer = document.getElementById("footer");
@@ -555,14 +584,3 @@ function ocultarElementos(){
 function reiniciarCuestionario(){
     location.reload();
 }
-
-
-
-
-
-
-
-
-
-
-

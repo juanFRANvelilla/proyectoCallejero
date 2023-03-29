@@ -156,7 +156,7 @@ function crearRecorrido(data) {
         var recorrido = crearRecorridoAleatorio(data);
         console.log("\nEl recorrido aleatorio: " + recorrido);
         recorridoValido = esRecorridoOptimo(recorrido, data);
-        console.log("El recorrido es valido?? " + recorridoValido)
+        console.log("El recorrido es valido? " + recorridoValido)
 
     }
     return recorrido;
@@ -360,19 +360,19 @@ function crearAlternativa(data, recorrido){
 
 //modificacion que consiste en suprimir una calle del recorrido que no sea el origen ni el destino
 function suprimirCalle(recorrido){
-    console.log("El recorrido sin recortar es: " + recorrido)
+    console.log("El recorrido original: " + recorrido)
     let longitudRecorrido = recorrido.length;
     let posicionCalleEliminar = Math.floor(Math.random()*(longitudRecorrido-2) + 1);
     let calleEliminar = recorrido[posicionCalleEliminar];
     recorrido = recorrido.filter(value => {return value != calleEliminar});
-    console.log("El recorrido recortado es: " + recorrido)
+    console.log("El recorrido recortado: " + recorrido)
     return recorrido;
 }
 
 //modificacion que cambia una calle del recorrido que no sea el origen ni el destino, consiste en cambiar la salida
 //de una calle del recorrido teniendo en cuenta de donde procede (conexion)
 function cambiarCalle(data, recorrido){
-    console.log("recorrido antes: ", recorrido)
+    console.log("recorrido original: ", recorrido)
     let calleDiferente = false;
 
     while (!calleDiferente){
@@ -412,23 +412,21 @@ function cambiarCalle(data, recorrido){
             recorrido[posicionCalleCambiar] = calleCambiada;
         }
     }
-    console.log("recorrido después: ", recorrido);
+    console.log("recorrido despues: ", recorrido);
     return recorrido;
 }
 
 //cambia el orden de 2 calles del recorrido, sin alterar el origen ni destino, se asegura que las
 //dos calles cambiadas en el recorrido esten juntas
 function cambiarOrden(recorrido){
-    console.log("recorrido antes: " + recorrido)
+    console.log("recorrido original: " + recorrido)
     let posicionA = Math.floor(Math.random() * (recorrido.length-2)) + 1;
-    let posicionB = 0;
-    let posicionBValida = false;
-    while (!posicionBValida){
+    let posicionB;
+    do {
         posicionB = Math.floor(Math.random() * (recorrido.length-2)) + 1;
-        if (posicionA != posicionB && (Math.abs(posicionA - posicionB) < 2)){
-            posicionBValida = true;
-        }
     }
+    while (Math.abs(posicionA - posicionB) != 1);
+
     let primeraCalle = recorrido[posicionA]
     let segundaCalle = recorrido[posicionB]
     recorrido[posicionA] = segundaCalle

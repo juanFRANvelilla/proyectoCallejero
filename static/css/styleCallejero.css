@@ -26,16 +26,17 @@ body{
 }
 
 .grid-container{
-    max-width: 60vw;
+    max-width: 85vw;
     width: 700px;
-    min-width: 200px;
+    min-width: 150px;
     height: auto;
     background-color: var(--color-oscuro);
+    grid-template-columns: minmax(150px, 1fr);
     color: azure;
     display: grid;
     grid-auto-flow: row;
     margin: auto;
-    padding: 20px 40px;
+    padding: 20px 0;
 }
 
 .class-enunciado {
@@ -175,6 +176,7 @@ body{
     .grid-container {
         border-radius: 20px;
         margin-top: 20px;
+        padding: 20px 40px;
     }
 
     body {

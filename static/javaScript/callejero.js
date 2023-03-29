@@ -28,6 +28,8 @@ let numeroPregunta = 1;
 let aciertos = 0;
 let fallos = 0;
 let respuestaCorrecta;
+//vector que almacena todos los origenes para no haya 2 preguntas con el mismo
+let origenes = [];
 realizarPeticion();
 
 //devuelve un string con el nombre de las calles de un recorrido
@@ -59,6 +61,7 @@ async function realizarPeticion() {
 
     //se crea un recorrido aleatorio y optimo
     let recorrido = crearRecorrido(data);
+    origenes.push(recorrido[0]);
 
     //crea 2 alternativas teniendo como origen el recorrido valido
     let recorridoAlternativa;
@@ -72,6 +75,7 @@ async function realizarPeticion() {
         console.log ("\nrecorrido correcto: " + recorrido)
         console.log ("recorrido alternativa 1: " + recorridoAlternativa)
         console.log ("recorrido alternativa 2: " + recorridoAlternativa2)
+        console.log("Origenes: ", origenes);
         if (!sonRecorridosIguales(recorridoAlternativa, recorridoAlternativa2) && !sonRecorridosIguales(recorrido, recorridoAlternativa2) && !sonRecorridosIguales(recorrido, recorridoAlternativa)){
             alternativaValida = true;
         }
@@ -163,14 +167,13 @@ function crearRecorrido(data) {
 function crearRecorridoAleatorio(data){
     let profundidad = Math.floor(Math.random() * (6-3) + 4);
     let contadorCalles = 1;
-    //origen no validos: 8, 9, 17, 20, 23
-    let origenValido = false;
-    while(!origenValido){
-        origen = Math.floor(Math.random() * data.length);
-        if (origen != 8 && origen != 9 && origen != 17 && origen != 20 && origen != 23){
-            origenValido = true;
-        }
+    let origen;
+    do {
+        origen = Math.floor(Math.random() * data.length); 
     }
+    //origen no validos: 8, 9, 17, 20, 23, y los origenes de las preguntas anteriores
+    while (origen == 8 || origen == 9 || origen == 17 || origen == 20 || origen == 23 || calleRepetida(origenes, origen));
+
     let recorrido = [origen];
     let conexion;
     //conexion se refiere a la calle de la que proviene, ya que dependiendo de esta tendras unas salidas u otras
@@ -310,10 +313,12 @@ function elegirConexion(calle, calleAnterior, data, numConexiones){
     }
 }
 
-//funcion booleana que comprueba si la calle que se va a añadir al recorrido se repite en este
-function calleRepetida(recorrido, salidaElegida){
-    for (let i = 0; i < recorrido.length; i++){
-        if(recorrido[i] == salidaElegida){
+//funcion booleana que comprueba si una calla se encuentra en el vector
+//se utiliza para comprobar que al añadir calles esta no se encontrara ya en el recorrido
+//y tambien para asegurarse que el origen de una pregunta no se repite en otra
+function calleRepetida(vector, calle){
+    for (let i = 0; i < vector.length; i++){
+        if(vector[i] == calle){
             return true;
         }
     }
@@ -411,8 +416,8 @@ function cambiarCalle(data, recorrido){
     return recorrido;
 }
 
-//cambia el orden de 2 calles del recorrido, sin alterar el origen ni destino, se asegura que la 
-//distancia entre las 2 calles cambiadas dentro del recorrido sea como maximo dos
+//cambia el orden de 2 calles del recorrido, sin alterar el origen ni destino, se asegura que las
+//dos calles cambiadas en el recorrido esten juntas
 function cambiarOrden(recorrido){
     console.log("recorrido antes: " + recorrido)
     let posicionA = Math.floor(Math.random() * (recorrido.length-2)) + 1;
@@ -420,7 +425,7 @@ function cambiarOrden(recorrido){
     let posicionBValida = false;
     while (!posicionBValida){
         posicionB = Math.floor(Math.random() * (recorrido.length-2)) + 1;
-        if (posicionA != posicionB && Math.abs(posicionA - posicionB < 3)){
+        if (posicionA != posicionB && (Math.abs(posicionA - posicionB) < 2)){
             posicionBValida = true;
         }
     }
@@ -506,7 +511,6 @@ function comprobarRespuesta(){
     }
     else if (callejero["alternativa"].value == 4){
         resultadoPreguntas += "<br> NO CONTESTADA";
-        console.log(resultadoPreguntas)
     }
 
     else if(callejero["alternativa"].value != respuestaCorrecta){

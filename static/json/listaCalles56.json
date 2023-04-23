@@ -1,0 +1,778 @@
+[{
+		"id": 0,
+		"nombre": "José Sancho Arroyo",
+		"conexion": [{
+			"entrada": [1,2],
+			"salidas": [3]
+		}]
+	},
+	{
+		"id": 1,
+		"nombre": "Leopoldo Romero",
+		"conexion": [{
+				"entrada": [4],
+				"salidas": [5,0]
+			},
+			{
+				"entrada": [5],
+				"salidas": [0]
+			}
+		]
+	},
+	{
+		"id": 2,
+		"nombre": "Rodrigo Rebolledo",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [6,4,5,0]
+		},{
+			"entrada": [6],
+			"salidas": [4,5,0]
+		},{
+			"entrada": [4],
+			"salidas": [5,0]
+		},{
+			"entrada": [5],
+			"salidas": [0]
+		}]
+	},
+	{
+		"id": 3,
+		"nombre": "Compromiso de Caspe",
+		"conexion": [{
+			"entrada": [7],
+			"salidas": [8,5,4,6,9]
+		},{
+			"entrada": [0],
+			"salidas": [5,4,6]
+		},{
+			"entrada": [5],
+			"salidas": [4,6]
+		},{
+			"entrada": [4],
+			"salidas": [6]
+		},{
+			"entrada": [6],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": [9,7,23]
+		},{
+			"entrada": [9],
+			"salidas": [7,23]
+		},{
+			"entrada": [22,55],
+			"salidas": [7,23,8,5,4,6]
+		}]
+	},
+	{
+		"id": 4,
+		"nombre": "Salvador Minguijón",
+		"conexion": [{
+			"entrada": [10,11],
+			"salidas": [3,2,1,12]
+		},{
+			"entrada": [3],
+			"salidas": [2,1,12]
+		},{
+			"entrada": [2],
+			"salidas": [1,12]
+		},{
+			"entrada": [13],
+			"salidas": [12]
+		}]
+	},
+	{
+		"id": 5,
+		"nombre": "Doctor Iranzo",
+		"conexion": [{
+			"entrada": [12],
+			"salidas": [56,13,1,2,3,11,14,15]
+		},{
+			"entrada": [13],
+			"salidas": [1,2,3,11,14,15]
+		},{
+			"entrada": [1],
+			"salidas": [2,3,11,14,15]
+		},{
+			"entrada": [2],
+			"salidas": [3,11,14,15]
+		},{
+			"entrada": [3],
+			"salidas": [11,14,15]
+		},{
+			"entrada": [11],
+			"salidas": [14,15]
+		},{
+			"entrada": [14],
+			"salidas": [15]
+		}]
+	},
+	{
+		"id": 6,
+		"nombre": "Fray Luis Urbano",
+		"conexion": [{
+			"entrada": [12],
+			"salidas": [2,3,11,10,16]
+		},{
+			"entrada": [2],
+			"salidas": [3,11,10,16]
+		},{
+			"entrada": [3],
+			"salidas": [11,10,16]
+		},{
+			"entrada": [14],
+			"salidas": [10,16]
+		}]
+	},
+	{
+		"id": 7,
+		"nombre": "Miguel Servet",
+		"conexion": [{
+				"entrada": [],
+				"salidas": [22,3,19,20,56]
+			},{
+				"entrada": [16],
+				"salidas": [22,3,19,20,56  ]
+			},{
+				"entrada": [15,21,14],
+				"salidas": [17,22,3,19,20,56  ]
+			},{
+				"entrada": [3,22,23],
+				"salidas": [56,19,20,18,17]
+			},{
+				"entrada": [56],
+				"salidas": [17,18,23,19,20 ]
+			},{
+				"entrada": [24,20,19],
+				"salidas": [17,18,23,56  ]
+			}]
+	},
+	{
+		"id": 8,
+		"nombre": "Florentino Ballesteros",
+		"conexion": [{
+			"entrada": [3,14],
+			"salidas": []
+		}]
+	},
+	{
+		"id": 9,
+		"nombre": "Jorge Cocci",
+		"conexion": [{
+			"entrada": [3],
+			"salidas": [19,56]
+		},{
+			"entrada": [56],
+			"salidas": [3 ,19]
+		},{
+			"entrada": [19],
+			"salidas": [3,56]
+		}]
+	},
+	{
+		"id": 10,
+		"nombre": "María de Aragón",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [16,15,14,11,4]
+		},{
+			"entrada": [6],
+			"salidas": [15,14,11,4]
+		}]
+	},
+	{
+		"id": 11,
+		"nombre": "Batalla de Lepanto",
+		"conexion": [{
+			"entrada": [6],
+			"salidas": [4,5]
+		},{
+			"entrada": [10],
+			"salidas": [5]
+		},{
+			"entrada": [5],
+			"salidas": []
+		}]
+	},{
+		"id": 12,
+		"nombre": "Echegaray y Caballero",
+		"conexion": [{
+			"entrada": [25,32],
+			"salidas": [26,31,56,5,6]
+		},{
+			"entrada": [28],
+			"salidas": [26,31,25,56,5,6]
+		},{
+			"entrada": [31],
+			"salidas": [26,56,5,6,32,25]
+		},{
+			"entrada": [4,38],
+			"salidas": [26,31,56,5,6,32,25]
+		},{
+			"entrada": [],
+			"salidas": [31,56,5,6,32,25]
+		}]
+	},{
+		"id": 13,
+		"nombre": "Silvestre Pérez",
+		"conexion": [{
+			"entrada": [56],
+			"salidas": [5,4]
+		},{
+			"entrada": [5],
+			"salidas": [4]
+		}]
+	},
+	{
+		"id": 14,
+		"nombre": "Tomás Higuera",
+		"conexion": [{
+			"entrada": [10],
+			"salidas": [5,8,7,6]
+		},{
+			"entrada": [5],
+			"salidas": [8,7]
+		}]
+	},
+	{
+		"id": 15,
+		"nombre": "Francisco Quevedo",
+		"conexion": [{
+			"entrada": [10,5],
+			"salidas": [7]
+		}]
+	},{
+		"id": 16,
+		"nombre": "Padre Chaminade",
+		"conexion": [{
+			"entrada": [6,10],
+			"salidas": [7]
+		}]
+	},{
+		"id": 17,
+		"nombre": "Camino de Cabaldos",
+		"conexion": [{
+			"entrada": [7],
+			"salidas": [30,33,34,35]
+		},{
+			"entrada": [41],
+			"salidas": [33,34,35]
+		},{
+			"entrada": [33],
+			"salidas": [34,35]
+		},{
+			"entrada": [34,36],
+			"salidas": [35]
+		}]
+	},{
+		"id": 18,
+		"nombre": "Matadero",
+		"conexion": [{
+			"entrada": [7],
+			"salidas": [30,22,23]
+		},{
+			"entrada": [30],
+			"salidas": [22,23]
+		},{
+			"entrada": [22],
+			"salidas": [23]
+		}]
+	},{
+		"id": 19,
+		"nombre": "Asalto",
+		"conexion": [{
+			"entrada": [37],
+			"salidas": [9,20,24,38]
+		},{
+			"entrada": [7,24],
+			"salidas": [24,9,38]
+		},{
+			"entrada": [9],
+			"salidas": [7,24,38]
+		}]
+	},{
+		"id": 20,
+		"nombre": "Plaza San Miguel",
+		"conexion": [{
+			"entrada": [7,24,19],
+			"salidas": [39,40]
+		},{
+			"entrada": [39],
+			"salidas": [40,24,7]
+		}]
+	},{
+		"id": 21,
+		"nombre": "Hermano Adolfo",
+		"conexion": [{
+			"entrada": [41],
+			"salidas": [30,7]
+		},{
+			"entrada": [30],
+			"salidas": [7]
+		}]
+	},{
+		"id": 22,
+		"nombre": "Monasterio de Samos",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [42,41,18,30,7,3]
+		},{
+			"entrada": [41],
+			"salidas": [18,30,7,3]
+		},{
+			"entrada": [18],
+			"salidas": [30,7,3]
+		},{
+			"entrada": [7],
+			"salidas": [3]
+		}]
+	},{
+		"id": 23,
+		"nombre": "Avenida de San José",
+		"conexion": [{
+			"entrada": [3,7],
+			"salidas": [34,43,44,45,46,47,48,49,51,50]
+		},{
+			"entrada": [18],
+			"salidas": [7,34,43,44,45,46,47,48,49,51,50]
+		},{
+			"entrada": [42],
+			"salidas": [7,41,34,43,44,45,46,47,48,49,51,50]
+		},{
+			"entrada": [34],
+			"salidas": [7,41,33,43,44,45,46,47,48,49,51,50]
+		},{
+			"entrada": [43],
+			"salidas": [44,45,46,47,48,49,51,50]
+		},{
+			"entrada": [44,52],
+			"salidas": [45,46,47,48,49,51,50]
+		},{
+			"entrada": [53],
+			"salidas": [47,48,49,51,50]
+		},{
+			"entrada": [54],
+			"salidas": [48,49,51,50]
+		},{
+			"entrada": [48],
+			"salidas": [49,51,50]
+		}]
+	},{
+		"id": 24,
+		"nombre": "Paseo de la Mina",
+		"conexion": [{
+			"entrada": [34],
+			"salidas": [7,19]
+		},{
+			"entrada": [20,19],
+			"salidas": [34]
+		}]
+	},{
+		"id": 25,
+		"nombre": "Plaza Europa",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [12]
+		},{
+			"entrada": [],
+			"salidas": [12]
+		},{
+			"entrada": [12],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": [12]
+		},{
+			"entrada": [],
+			"salidas": [12]
+		},{
+			"entrada": [],
+			"salidas": [12]
+		}]
+	},{
+		"id": 26,
+		"nombre": "San Vicente de Paul",
+		"conexion": [{
+			"entrada": [12],
+			"salidas": []
+		},{
+			"entrada": [6],
+			"salidas": [27]
+		}]
+	},{
+		"id": 27,
+		"nombre": "Coso",
+		"conexion": [{
+			"entrada": [31,26],
+			"salidas": [39,31]
+		},{
+			"entrada": [39],
+			"salidas": [31]
+		},{
+			"entrada": [31],
+			"salidas": []
+		}]
+	},{
+		"id": 28,
+		"nombre": "Ramón Celma",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [12]
+		}]
+	},{
+		"id": 29,
+		"nombre": "Cesar Augusto",
+		"conexion": [{
+			"entrada": [],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": [32]
+		},{
+			"entrada": [],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": []
+		}]
+	},{
+		"id": 30,
+		"nombre": "Monasterio de Pobet",
+		"conexion": [{
+			"entrada": [22],
+			"salidas": [18]
+		},{
+			"entrada": [18],
+			"salidas": []
+		},{
+			"entrada": [17],
+			"salidas": [21]
+		},{
+			"entrada": [21],
+			"salidas": []
+		}]
+	},{
+		"id": 31,
+		"nombre": "Plaza Puerta del Sol",
+		"conexion": [{
+			"entrada": [12],
+			"salidas": [27,12]
+		},{
+			"entrada": [27],
+			"salidas": [12,27]
+		},{
+			"entrada": [],
+			"salidas": [12,27]
+		}]
+	},{
+		"id": 32,
+		"nombre": "Avenida de los Pirineos",
+		"conexion": [{
+			"entrada": [12,29],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": [12]
+		},{
+			"entrada": [],
+			"salidas": [12]
+		},{
+			"entrada": [],
+			"salidas": [12]
+		}]
+	},{
+		"id": 33,
+		"nombre": "Castelar",
+		"conexion": [{
+			"entrada": [23],
+			"salidas": [17]
+		},{
+			"entrada": [17],
+			"salidas": []
+		}]
+	},{
+		"id": 34,
+		"nombre": "Cesareo Alierta",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [35,17,23,56,24]
+		},{
+			"entrada": [],
+			"salidas": [17,23,56,24,35]
+		},{
+			"entrada": [17],
+			"salidas": [23,24,35,56]
+		},{
+			"entrada": [23,53],
+			"salidas": [56,24,17,35]
+		},{
+			"entrada": [56],
+			"salidas": [24,23,17,35]
+		},{
+			"entrada": [],
+			"salidas": [24,56,23,17,35]
+		},{
+			"entrada": [],
+			"salidas": [24,56,23,17,35]
+		},{
+			"entrada": [],
+			"salidas": [23,17,35,56,24]
+		},{
+			"entrada": [24],
+			"salidas": []
+		}]
+	},{
+		"id": 35,
+		"nombre": "Camino del Junco",
+		"conexion": [{
+			"entrada": [34],
+			"salidas": []
+		},{
+			"entrada": [17],
+			"salidas": []
+		}]
+	},{
+		"id": 36,
+		"nombre": "José Galiay",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [44,17]
+		}]
+	},{
+		"id": 37,
+		"nombre": "Cantín y Gamboa",
+		"conexion": [{
+			"entrada": [27],
+			"salidas": [19]
+		}]
+	},{
+		"id": 38,
+		"nombre": "Monreal",
+		"conexion": [{
+			"entrada": [19],
+			"salidas": [12]
+		}]
+	},{
+		"id": 39,
+		"nombre": "Espartero",
+		"conexion": [{
+			"entrada": [27],
+			"salidas": [20]
+		},{
+			"entrada": [20],
+			"salidas": [27]
+		}]
+	},{
+		"id": 40,
+		"nombre": "Calle San Miguel",
+		"conexion": [{
+			"entrada": [20],
+			"salidas": []
+		}]
+	},{
+		"id": 41,
+		"nombre": "Privilegio de la Unión",
+		"conexion": [{
+			"entrada": [23],
+			"salidas": [22,21,17]
+		},{
+			"entrada": [22],
+			"salidas": [21,17]
+		}]
+	},{
+		"id": 42,
+		"nombre": "Antonio Maura",
+		"conexion": [{
+			"entrada": [22],
+			"salidas": [23]
+		}]
+	},{
+		"id": 43,
+		"nombre": "Paseo de los Rosales",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [23,56]
+		},{
+			"entrada": [23],
+			"salidas": [56]
+		},{
+			"entrada": [56],
+			"salidas": [23]
+		}]
+	},{
+		"id": 44,
+		"nombre": "Tenor Fleta",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [56,23,53]
+		},{
+			"entrada": [56],
+			"salidas": [23,53]
+		},{
+			"entrada": [23],
+			"salidas": [53,56]
+		},{
+			"entrada": [53],
+			"salidas": [23,56]
+		},{
+			"entrada": [36],
+			"salidas": [53,23,56]
+		},{
+			"entrada": [],
+			"salidas": [56]
+		}]
+	},{
+		"id": 45,
+		"nombre": "José Pellicer",
+		"conexion": [{
+			"entrada": [23],
+			"salidas": [46]
+		},{
+			"entrada": [46],
+			"salidas": []
+		},{
+			"entrada": [56],
+			"salidas": []
+		}]
+	},{
+		"id": 46,
+		"nombre": "María Moliner",
+		"conexion": [{
+			"entrada": [45],
+			"salidas": []
+		},{
+			"entrada": [53,23],
+			"salidas": []
+		}]
+	},{
+		"id": 47,
+		"nombre": "Doce de Octubre",
+		"conexion": [{
+			"entrada": [23],
+			"salidas": []
+		}]
+	},{
+		"id": 48,
+		"nombre": "Lapuyade",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [23]
+		},{
+			"entrada": [23],
+			"salidas": []
+		}]
+	},{
+		"id": 49,
+		"nombre": "Vía de San Fernando",
+		"conexion": [{
+			"entrada": [],
+			"salidas": []
+		},{
+			"entrada": [23],
+			"salidas": []
+		}]
+	},{
+		"id": 50,
+		"nombre": "Honorio García Condoy",
+		"conexion": [{
+			"entrada": [23,51],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": []
+		}]
+	},{
+		"id": 51,
+		"nombre": "Paseo del Canal",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [50]
+		},{
+			"entrada": [23],
+			"salidas": []
+		},{
+			"entrada": [],
+			"salidas": [50]
+		}]
+	},{
+		"id": 52,
+		"nombre": "Dos de Mayo",
+		"conexion": [{
+			"entrada": [53],
+			"salidas": [23]
+		}]
+	},{
+		"id": 53,
+		"nombre": "Puente del Virrey",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [23,46,52,44,34]
+		},{
+			"entrada": [44],
+			"salidas": [34]
+		}]
+	},{
+		"id": 54,
+		"nombre": "Federico Gº Lorca",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [23]
+		}]
+	},{
+		"id": 55,
+		"nombre": "Juaquín Sanz Galea",
+		"conexion": [{
+			"entrada": [56],
+			"salidas": [3]
+		}]
+	},{
+		"id": 56,
+		"nombre": "Camino de las Torres",
+		"conexion": [{
+			"entrada": [],
+			"salidas": [44,43,34,7,55,9,13]
+		},{
+			"entrada": [44],
+			"salidas": [43,34,7,55,9,13]
+		},{
+			"entrada": [43],
+			"salidas": [34,7,55,9,13,44]
+		},{
+			"entrada": [34],
+			"salidas": [7,55,9,13,44]
+		},{
+			"entrada": [12],
+			"salidas": [13,9,55,7,34,44]
+		},{
+			"entrada": [],
+			"salidas": [44]
+		},{
+			"entrada": [],
+			"salidas": [43,34,7,55,9,13,44]
+		},{
+			"entrada": [5],
+			"salidas": []
+		},{
+			"entrada": [7],
+			"salidas": [55,9,13,34,44]
+		},{
+			"entrada": [],
+			"salidas": [9,7,34,44]
+		},{
+			"entrada": [9],
+			"salidas": [13,7,34,44]
+		}]
+	}]

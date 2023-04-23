@@ -28,7 +28,7 @@ let numeroPregunta = 1;
 let aciertos = 0;
 let fallos = 0;
 let respuestaCorrecta;
-//vector que almacena todos los origenes para no haya 2 preguntas con el mismo
+//vector que almacena todos los origenes invalidos para no haya 2 preguntas con el mismo
 let origenes = [];
 realizarPeticion();
 
@@ -56,7 +56,7 @@ function sonRecorridosIguales(recorrido1, recorrido2){
 
 //primera funcion con la que carga el .json y crea un recorrido aleatorio válido y sus 2 alernativas
 async function realizarPeticion() {
-    const res = await fetch('static/json/listaCalles.json');
+    const res = await fetch('static/json/listaCalles56.json');
     const data = await res.json();
 
     //se crea un recorrido aleatorio y optimo
@@ -167,17 +167,19 @@ function crearRecorrido(data) {
 function crearRecorridoAleatorio(data){
     let profundidad = Math.floor(Math.random() * (6-3) + 4);
     let contadorCalles = 1;
-    let origen;
-    do {
-        origen = Math.floor(Math.random() * data.length); 
-    }
-    //origen no validos: 8, 9, 17, 20, 23, y los origenes de las preguntas anteriores
-    while (origen == 8 || origen == 9 || origen == 17 || origen == 20 || origen == 23 || calleRepetida(origenes, origen));
-
-    let recorrido = [origen];
-    let conexion;
-    //conexion se refiere a la calle de la que proviene, ya que dependiendo de esta tendras unas salidas u otras
+    let recorrido;
+    
     while(profundidad !== contadorCalles){
+        let origen;
+        do {
+            origen = Math.floor(Math.random() * data.length);
+        }
+        //no son validos los origenes de las preguntas anteriores
+        while (calleRepetida(origenes, origen));
+        
+        recorrido = [origen];
+        let conexion;
+        //conexion se refiere a la calle de la que proviene, ya que dependiendo de esta tendras unas salidas u otras
         for (let i = 1; i < profundidad; i++){
             if (contadorCalles == 1){
                 conexion = 0;

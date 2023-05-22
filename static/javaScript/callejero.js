@@ -56,7 +56,7 @@ function sonRecorridosIguales(recorrido1, recorrido2){
 
 //primera funcion con la que carga el .json y crea un recorrido aleatorio válido y sus 2 alernativas
 async function realizarPeticion() {
-    const res = await fetch('static/json/listaCalles56.json');
+    const res = await fetch('static/json/listaCalles79.json');
     const data = await res.json();
 
     //se crea un recorrido aleatorio y optimo
@@ -176,7 +176,6 @@ function crearRecorridoAleatorio(data){
         }
         //no son validos los origenes de las preguntas anteriores
         while (calleRepetida(origenes, origen));
-        
         recorrido = [origen];
         let conexion;
         //conexion se refiere a la calle de la que proviene, ya que dependiendo de esta tendras unas salidas u otras
@@ -337,25 +336,39 @@ function crearContador(profundidad){
     return contador;
 }
 
+//variable que cuando las funciones 2 o 3 no consiguen introducir de forma correcta ninguna calle porque al tomar de referencia
+//cualquiera de las calles solo tienen una salida bloquea que estas modificaciones se ejecuten
+let modificacion23Disponible = true;
 //crea la alternativa al recorrido correcto realizando modificaciones
 function crearAlternativa(data, recorrido){
-    let tipoModificacion = Math.floor(Math.random() * 4);
-    console.log("\nTIPO MODIFICACION " + tipoModificacion)
-    switch (tipoModificacion){
-        case 0:
-            recorrido = suprimirCalle(recorrido);
-            break;
-        case 1:
-            recorrido = cambiarCalle(data, recorrido);
-            break;
-        case 2:
-            recorrido = cambiarOrden(recorrido);
-            break;
-        case 3:
-            recorrido = añadirCalle(data, recorrido);
-            break;
-    }  
-    return recorrido;
+    let tipoModificacion = 0;
+    let recorridoModificado = null;
+    do{
+        recorridoModificado = recorrido.slice();
+        if (modificacion23Disponible){
+            tipoModificacion = Math.floor(Math.random() * 4);
+        }
+        else{
+            tipoModificacion = Math.floor(Math.random() * 2);
+        }
+        console.log("\nTIPO MODIFICACION " + tipoModificacion);
+        switch (tipoModificacion){
+            case 0:
+                recorridoModificado = suprimirCalle(recorridoModificado);
+                break;
+            case 1:
+                recorridoModificado = cambiarOrden(recorridoModificado);
+                break;
+            case 2:
+                recorridoModificado = cambiarCalle(data, recorridoModificado);
+                break;
+            case 3:
+                recorridoModificado = añadirCalle(data, recorridoModificado);
+                break;
+        }  
+    }
+    while (recorridoModificado == null);
+    return recorridoModificado;
 }
 
 
@@ -376,45 +389,68 @@ function suprimirCalle(recorrido){
 function cambiarCalle(data, recorrido){
     console.log("recorrido original: ", recorrido)
     let calleDiferente = false;
+    //set en el que se almacenan las posiciones que no se puede buscar una alternativa, ya que las calle que las precede solo tienen una salida
+    let calleBuscarConexionNoValidas = new Set();
 
     while (!calleDiferente){
         let calleCambiada = 0;
         let posicionCalleCambiar = Math.floor(Math.random() * (recorrido.length-2)) + 1;
+        console.log("Posicion cambiar: " + posicionCalleCambiar)
         let calleNoCambiada = recorrido[posicionCalleCambiar];
         let calleDondeBuscoNuevaSalida = data[recorrido[posicionCalleCambiar - 1]].id;
         //si quieres cambiar la calle 1 tendras que elegir otra salida de la calle 0 (calle origen) y la conexion utilizada
         //por defecto sera 0, ya que la calle origen no tiene ninguna calle de procedencia
-        if (posicionCalleCambiar == 1){
-            let conexion = 0;
-            let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
-            //si solo hay una salida no se va a poder cambiar esta a otra aleatoria
-            if (numSalidas == 1){
-                continue;
+        
+        if (!calleBuscarConexionNoValidas.has(posicionCalleCambiar)){
+            console.log("salida diferente al set")
+            console.log("tamaño set " + calleBuscarConexionNoValidas.size + " recorrido - 2 " + (recorrido.length - 2))
+            if (posicionCalleCambiar == 1){
+                let conexion = 0;
+                let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
+                //si solo hay una salida no se va a poder cambiar esta a otra aleatoria
+                if (numSalidas == 1){
+                    console.log("Solo una salida")
+                    calleBuscarConexionNoValidas.add(posicionCalleCambiar);
+                    continue;
+                }
+                calleCambiada = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
             }
-            calleCambiada = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
+            //si quieres cambiar una calle que no sea la 1 tendras que elegir otra salida de la calle anterior y sera necesario saber
+            //la conexion de esta, es decir la calle de procedencia para poder elegir las salidas correctas
+            else{
+                let calleAnteriorBuscarConexion = data[recorrido[posicionCalleCambiar - 2]].id;
+                let numConexiones = data[calleDondeBuscoNuevaSalida].conexion.length;
+                let conexion = elegirConexion(calleDondeBuscoNuevaSalida,calleAnteriorBuscarConexion, data, numConexiones);
+                let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
+                //si solo hay una salida no se va a poder cambiar esta a otra aleatoria
+                if (numSalidas == 1){
+                    console.log("Solo una salida")
+                    calleBuscarConexionNoValidas.add(posicionCalleCambiar);
+                    continue;
+                }
+                
+                calleCambiada = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
+            }
         }
-        //si quieres cambiar una calle que no sea la 1 tendras que elegir otra salida de la calle anterior y sera necesario saber
-        //la conexion de esta, es decir la calle de procedencia para poder elegir las salidas correctas
+        else if (calleBuscarConexionNoValidas.size == recorrido.length - 2){
+            console.log("NO HAY ALTERNATIVAS, TODAS LAS CALLES TIENEN SOLO UNA SALIDA")
+            modificacion23Disponible = false;
+            return null;
+        }
         else{
-            let calleAnteriorBuscarConexion = data[recorrido[posicionCalleCambiar - 2]].id;
-            let numConexiones = data[calleDondeBuscoNuevaSalida].conexion.length;
-            let conexion = elegirConexion(calleDondeBuscoNuevaSalida,calleAnteriorBuscarConexion, data, numConexiones);
-            let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
-            //si solo hay una salida no se va a poder cambiar esta a otra aleatoria
-            if (numSalidas == 1){
-                continue;
-            }
-            calleCambiada = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
+            console.log("calle repetida en el set")
+            console.log("tamaño set " + calleBuscarConexionNoValidas.size + " recorrido - 2 " + (recorrido.length - 2))
+            continue;
         }
 
-        
+        console.log("Xcalle alternativa a cambiar: " + calleCambiada)
         //se comprueba que la salida alternativa escogida de forma aleatoria es diferente
         if (calleNoCambiada != calleCambiada){
             calleDiferente = true;
             recorrido[posicionCalleCambiar] = calleCambiada;
+            console.log("recorrido despues: ", recorrido);
         }
     }
-    console.log("recorrido despues: ", recorrido);
     return recorrido;
 }
 
@@ -441,34 +477,53 @@ function cambiarOrden(recorrido){
 //añade una calle en una posicion aleatoria que no sea origen ni destino, esta calle nueva
 //no puede ser igual a ninuna otra que ya contenga el recorrido
 function añadirCalle(data, recorrido){    
-    let calleAñadidaNueva = false;    
+    let calleAñadidaNueva = false;
+    let calleBuscarConexionNoValidas = new Set();   
     console.log("recorrido original: " + recorrido)
 
     while (!calleAñadidaNueva){
         let calleAñadida = 0;
         let posicionAñadir = Math.floor(Math.random() * (recorrido.length-2)) + 1;
+        console.log(calleBuscarConexionNoValidas)
+        console.log("posicion: " + posicionAñadir)
         let calleDondeBuscoNuevaSalida = data[recorrido[posicionAñadir - 1]].id;
-        if (posicionAñadir == 1){
-            let conexion = 0;
-            let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
-            //si solo hay una salida no se va a poder añadir otra calle diferente
-            if (numSalidas == 1){
-                continue;
+        if (!calleBuscarConexionNoValidas.has(posicionAñadir)){
+            if (posicionAñadir == 1){
+                let conexion = 0;
+                let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
+                //si solo hay una salida no se va a poder añadir otra calle diferente
+                if (numSalidas == 1){
+                    console.log("Solo una salida")
+                    calleBuscarConexionNoValidas.add(posicionAñadir);
+                    continue;
+                }
+                calleAñadida = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
             }
-            calleAñadida = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
+            //si quieres añadir una calle que no sea la 1 tendras que elegir una salida de la calle anterior y sera necesario saber
+            //la conexion de esta, es decir la calle de procedencia para poder elegir las salidas correctas
+            else{
+                let calleAnteriorBuscarConexion = data[recorrido[posicionAñadir - 2]].id;
+                let numConexiones = data[calleDondeBuscoNuevaSalida].conexion.length;
+                let conexion = elegirConexion(calleDondeBuscoNuevaSalida,calleAnteriorBuscarConexion, data, numConexiones);
+                let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
+                //si solo hay una salida no se va a poder añadir otra calle diferente
+                if (numSalidas == 1){
+                    console.log("Solo una salida")
+                    calleBuscarConexionNoValidas.add(posicionAñadir);
+                    continue;
+                }
+                calleAñadida = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
+            }
         }
-        //si quieres añadir una calle que no sea la 1 tendras que elegir una salida de la calle anterior y sera necesario saber
-        //la conexion de esta, es decir la calle de procedencia para poder elegir las salidas correctas
+        else if (calleBuscarConexionNoValidas.size == recorrido.length - 2){
+            console.log("NO HAY ALTERNATIVAS, TODAS LAS CALLES TIENEN SOLO UNA SALIDA");
+            modificacion23Disponible = false;
+            return null;
+        }
         else{
-            let calleAnteriorBuscarConexion = data[recorrido[posicionAñadir - 2]].id;
-            let numConexiones = data[calleDondeBuscoNuevaSalida].conexion.length;
-            let conexion = elegirConexion(calleDondeBuscoNuevaSalida,calleAnteriorBuscarConexion, data, numConexiones);
-            let numSalidas = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas.length;
-            //si solo hay una salida no se va a poder añadir otra calle diferente
-            if (numSalidas == 1){
-                continue;
-            }
-            calleAñadida = data[calleDondeBuscoNuevaSalida].conexion[conexion].salidas[Math.floor(Math.random() * numSalidas)];
+            console.log("calle repetida en el set")
+            console.log("tamaño set " + calleBuscarConexionNoValidas.size + " recorrido - 2: " + (recorrido.length - 2))
+            continue;
         }
 
         //comprobamos que la calle que vamos a añadir no este ya en el recorrido, de ser asi se añadira
